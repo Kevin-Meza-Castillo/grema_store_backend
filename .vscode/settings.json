@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "grema_store",
+            "username": "postgres",
+            "name": "postgres sql",
+            "password": "Angaby290394."
+        }
+    ]
+}
