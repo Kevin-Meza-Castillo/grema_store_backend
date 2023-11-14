@@ -1,5 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { ProfilePassword, Users } from "../interfaces/users.interfaces";
+import bcrypt from "bcrypt"
+import { generateToken } from "../utils/tokens/generate_token";
+import { verifyToken } from "../utils/tokens/verify_token";
 const prisma = new PrismaClient({});
 export class UserController {
   async getUser() {
@@ -7,10 +10,11 @@ export class UserController {
       console.log(
         "Sirve para llamar a la base de datos o los diferents metodos para el tratamiento de informacion"
       );
-    } catch (error) {}
+    } catch (error) { }
   }
   async createNewUser(_body: Users) {
     try {
+      const hashedPassword = await bcrypt.hash(_body.password, 10);
       const user = await prisma.users.create({
         data: {
           id: _body.id,
@@ -24,7 +28,7 @@ export class UserController {
           profile: {
             create: {
               email: _body.email,
-              password: _body.password,
+              password: hashedPassword,
               address: _body.address,
               createAtProfile: new Date(),
               updateAtProfile: new Date(),
@@ -32,11 +36,12 @@ export class UserController {
           },
         },
       });
+
       return {
         success: "Ok",
         status: 201,
         msg: "New user create in db",
-        data: _body,
+        data: { _body },
       };
     } catch (error: any) {
       if (error.code === "P2002")
@@ -59,14 +64,14 @@ export class UserController {
       console.log(
         "Sirve para llamar a la base de datos o los diferents metodos para el tratamiento de informacion"
       );
-    } catch (error) {}
+    } catch (error) { }
   }
   async deleteUser() {
     try {
       console.log(
         "Sirve para llamar a la base de datos o los diferents metodos para el tratamiento de informacion"
       );
-    } catch (error) {}
+    } catch (error) { }
   }
   async updateProfilePassword(_body: ProfilePassword) {
     try {

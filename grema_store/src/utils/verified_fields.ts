@@ -1,11 +1,11 @@
 import {
   ProfilePassword,
   Users,
-  keysToValidateProfilePassword,
-  keysToValidateUserCreate,
+  KeysToValidateProfilePassword,
+  KeysToValidateUserCreate,
 } from "../interfaces/users.interfaces";
 
-export const verifiedFields = (body: Users | ProfilePassword , type: string) => {
+export const verifiedFields = (body: Users | ProfilePassword, type: string) => {
   let data = {};
   let valiField = false;
   let valiFieldContent = false;
@@ -16,7 +16,7 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
       const keysInBody = Object.keys(body).map((value) => {
         return value.toString();
       });
-      const keysInEnum = Object.keys(keysToValidateUserCreate).map((value) => {
+      const keysInEnum = Object.keys(KeysToValidateUserCreate).map((value) => {
         return value.toString();
       });
 
@@ -28,23 +28,23 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
           validate: false,
         };
       // se valida que el objeto contenga las claves requeridas
-      keysInEnum.forEach((kv,index) => {
+      keysInEnum.forEach((kv, index) => {
         if (!keysInBody.includes(kv)) {
           valiField = true;
           noFieldExist.push(kv);
         }
       });
 
-      Object.values(body).forEach((element)=>{
-        if(element === null || element === '' || element === undefined){
+      Object.values(body).forEach((element) => {
+        if (element === null || element === '' || element === undefined) {
           valiFieldContent = true;
-          
+
         }
       })
 
       if (valiField || valiFieldContent) {
 
-        if(valiField && (noFieldExist.length !== 0) && !valiFieldContent ){
+        if (valiField && (noFieldExist.length !== 0) && !valiFieldContent) {
           return {
             status: 400,
             msg: "Error missing fields on body request",
@@ -53,7 +53,7 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
           };
         }
 
-        if(valiField && valiFieldContent){
+        if (valiField && valiFieldContent) {
           return {
             status: 400,
             msg: "Error missing fields on body request and fields on body request are void ",
@@ -68,13 +68,13 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
           validate: false,
         };
       }
-      return {validate: true}
+      return { validate: true }
     }
     case "updateProfilePassword": {
       const keysInBody = Object.keys(body).map((value) => {
         return value.toString();
       });
-      const keysInEnum = Object.keys(keysToValidateProfilePassword).map((value) => {
+      const keysInEnum = Object.keys(KeysToValidateProfilePassword).map((value) => {
         return value.toString();
       });
 
@@ -86,23 +86,23 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
           validate: false,
         };
       // se valida que el objeto contenga las claves requeridas
-      keysInEnum.forEach((kv,index) => {
+      keysInEnum.forEach((kv, index) => {
         if (!keysInBody.includes(kv)) {
           valiField = true;
           noFieldExist.push(kv);
         }
       });
 
-      Object.values(body).forEach((element)=>{
-        if(element === null || element === '' || element === undefined){
+      Object.values(body).forEach((element) => {
+        if (element === null || element === '' || element === undefined) {
           valiFieldContent = true;
-          
+
         }
       })
 
       if (valiField || valiFieldContent) {
 
-        if(valiField && (noFieldExist.length !== 0) && !valiFieldContent ){
+        if (valiField && (noFieldExist.length !== 0) && !valiFieldContent) {
           return {
             status: 400,
             msg: "Error missing fields on body request",
@@ -111,7 +111,7 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
           };
         }
 
-        if(valiField && valiFieldContent){
+        if (valiField && valiFieldContent) {
           return {
             status: 400,
             msg: "Error missing fields on body request and fields on body request are void ",
@@ -126,7 +126,7 @@ export const verifiedFields = (body: Users | ProfilePassword , type: string) => 
           validate: false,
         };
       }
-      return {validate: true}
+      return { validate: true }
     }
   }
 };

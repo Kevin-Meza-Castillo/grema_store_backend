@@ -96,7 +96,7 @@ export class UsersEndpoint {
 
   async updateProfileEmail(req: Request, res: Response) {
     try {
-      const prisma = new PrismaClient({});
+      
       const body = req.body;
 
       const user = await prisma.profile.update({
@@ -110,6 +110,14 @@ export class UsersEndpoint {
       return res.status(200).json({ msg: "Estamos bien" });
     } catch (error) {
       return res.sendStatus(400);
+    }
+  }
+
+  async loginUser(req: Request, res: Response){
+    try {
+      
+    } catch (error) {
+      return res.sendStatus(500);
     }
   }
 }

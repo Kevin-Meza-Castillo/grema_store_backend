@@ -10,9 +10,9 @@ export interface Users {
 }
 
 export interface ProfilePassword {
-  id : number
-  email : string,
-  password : string
+  id: number;
+  email: string;
+  password: string;
 }
 
 export interface ResponseUser {
@@ -25,7 +25,7 @@ export interface ResponseUser {
   validate?: boolean | undefined;
 }
 
-export enum keysToValidateUserCreate {
+export enum KeysToValidateUserCreate {
   id = "id",
   name = "name",
   lastName = "lastName",
@@ -35,8 +35,22 @@ export enum keysToValidateUserCreate {
   password = "password",
   address = "address",
 }
-export enum keysToValidateProfilePassword {
+export enum KeysToValidateProfilePassword {
   id = "id",
   email = "email",
-  password = "password"
+  password = "password",
+}
+
+export interface EntriesGenerateToken {
+  userId: number;
+  email: string;
+  password: string;
+}
+
+export interface DecodeReponseJwt {
+  userId: number;
+  email: string;
+  password: string;
+  iat: number;
+  exp: number;
 }
